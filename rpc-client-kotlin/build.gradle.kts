@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("maven-publish")
 }
 
 android {
@@ -49,4 +50,18 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-process:2.5.1")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     kapt ("androidx.room:room-compiler:2.5.0")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+
+                groupId = "com.github.husnainali1271"
+                artifactId = "Publishing-Test-Library"
+                version = "1.0"
+            }
+        }
+    }
 }
